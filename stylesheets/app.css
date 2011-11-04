@@ -1,0 +1,80 @@
+/* CSS Reset */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+	background: transparent;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+
+/* remember to define focus styles! */
+:focus {
+	outline: 0;
+}
+
+/* remember to highlight inserts somehow! */
+ins {
+	text-decoration: none;
+}
+del {
+	text-decoration: line-through;
+}
+
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+
+/* 
+ * Site styles *
+ *
+ * Scale: http://modularscale.com/scale/?px1=18&px2=63&ra1=1.618&ra2=0
+ * ref: http://nicewebtype.com/fonts/minion-with-myriad-condensed/css/style.css
+ */
+
+html {
+  text-rendering: optimizeLegibility;-webkit-font-smoothing: antialiased;
+  image-rendering: optimizeQuality;image-rendering: -moz-crisp-edges;image-rendering: -webkit-optimize-contrast;-ms-interpolation-mode: nearest-neighbor;
+  background:#fff;color:#000;
+}
+
+  body {
+    padding:9.192px 14.873px 24.065px 14.873px;
+    max-width:698.605px;margin:0 auto;
+    font-family:"Helvetica Neue",sans-serif;font-size:18px;font-weight:400;line-height:24.065px;
+    zoom:1;
+  }
+  body:before, body:after {content:"";display:table}
+  body:after {clear:both}
+
+    a {-webkit-transition:color 1s ease,border-color 1s ease,background-color 1s ease;}
+    a:link, a:visited {color:#333}
+    a:active, a:hover, a:focus {color:#000}
+
+    b, strong {font-weight:bold}
