@@ -18,6 +18,36 @@
 
     <img src="images/testa.jpeg" />
 
+    <form>
+      <fieldset>
+        <ol>
+          <li>
+            <label for="threshold">Threshold</label>
+            <input type="range" id="threshold" min="1" max="300" />
+          </li>
+          <li>
+            <label for="metric">Metric</label>
+            <select id="metric">
+              <option value="euc">Euclidean distance</option>
+              <option value="man">Manhattan distance</option>
+              <option value="max">Maximum distance</option>
+            </select>
+          </li>
+          <li>
+            <label for="linkage">Linkage</label>
+            <select id="metric">
+              <option value="avg">Average</option>
+              <option value="sgl">Single</option>
+              <option value="com">Complete</option>
+            </select>
+          </li>
+          <li>
+            <input type="submit" value="Get me colours" />
+          </li>
+        </ol>
+      </fieldset>
+    </form>
+
     <div></div>
 
 
