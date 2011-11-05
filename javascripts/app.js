@@ -1,6 +1,7 @@
 (function() {
   $(function() {
-    var c, clustersToColours, ctx, getSettings, img, newImage, results, sanitise, showColours;
+    var c, clustersToColours, ctx, dimensions, doc, getSample, getSettings, img, newImage, results, sanitise, settings, showColours;
+    doc = $(document);
     sanitise = function(data) {
       var clean, i, pix, _len;
       clean = {};
@@ -10,19 +11,16 @@
       }
       return clean;
     };
+    getSample = function() {
+      return [$('#x').val(), $('#y').val(), $('#width').val(), $('#height').val()];
+    };
     newImage = function(url) {
       var i;
+      ctx.clearRect(0, 0, 500, 333);
       i = new Image();
       i.onload = function() {
-        var d, worker;
-        ctx.drawImage(i, 0, 0);
-        d = ctx.getImageData(40, 50, 10, 80);
-        worker = new Worker('javascripts/dataToColours.js');
-        worker.onmessage = function(e) {
-          $(document).trigger('newColours.LF', [e.data]);
-          return worker.terminate();
-        };
-        return worker.postMessage(sanitise(d.data));
+        ctx.drawImage(this, 0, 0);
+        return doc.trigger('newImage.LF', [this]);
       };
       return i.src = url;
     };
@@ -44,12 +42,24 @@
         return results.append(sq.clone().css('background-color', "rgb(" + r + "," + g + "," + b + ")"));
       });
     };
-    $(document).on('newColours.LF', function(e, colours) {
+    doc.on('newImage.LF', function(e, i) {
+      var d, height, width, worker, x, y, _ref;
+      _ref = getSample(), x = _ref[0], y = _ref[1], width = _ref[2], height = _ref[3];
+      d = ctx.getImageData(x, y, width, height);
+      ctx.strokeRect(x, y, width, height);
+      worker = new Worker('javascripts/dataToColours.js');
+      worker.onmessage = function(e) {
+        doc.trigger('newColours.LF', [e.data]);
+        return worker.terminate();
+      };
+      return worker.postMessage(sanitise(d.data));
+    });
+    doc.on('newColours.LF', function(e, colours) {
       var linkage, metric, threshold, worker, _ref;
       window.colourCache = colours;
       worker = new Worker('javascripts/clusterColours.js');
       worker.onmessage = function(e) {
-        return $(document).trigger('newClusters.LF', [e.data]);
+        return doc.trigger('newClusters.LF', [e.data]);
       };
       _ref = getSettings(), threshold = _ref[0], metric = _ref[1], linkage = _ref[2];
       return worker.postMessage({
@@ -59,21 +69,23 @@
         linkage: linkage
       });
     });
-    $(document).on('newClusters.LF', function(e, clusters) {
+    doc.on('newClusters.LF', function(e, clusters) {
       var colours;
-      console.log(clusters);
       colours = clustersToColours(clusters);
       return showColours(colours);
     });
-    $('input,select').on('change', function(e) {
-      e.preventDefault();
-      return $(document).trigger('newColours.LF', [colourCache]);
-    });
     results = $('div');
-    c = $('<canvas width="500" height="333"/>');
-    c.insertBefore(results);
+    c = $('canvas');
     ctx = c.get(0).getContext('2d');
     img = $('img');
-    return newImage(img.attr('src'));
+    newImage(img.attr('src'));
+    dimensions = $('#sample');
+    settings = $('#settings');
+    dimensions.on('change', 'input', function() {
+      return newImage(img.attr('src'));
+    });
+    return settings.on('change', 'input,select', function() {
+      return doc.trigger('newColours.LF', [colourCache]);
+    });
   });
 }).call(this);

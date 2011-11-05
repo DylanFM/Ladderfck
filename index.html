@@ -19,7 +19,29 @@
 
     <img src="images/testa.jpeg" />
 
-    <fieldset>
+    <fieldset id="sample">
+      <legend>Sample</legend>
+      <ol>
+        <li>
+          <label for="x">x</label>
+          <input id="x" type="number" min="0" max="500" value="245" required />
+        </li>
+        <li>
+          <label for="y">y</label>
+          <input id="y" type="number" min="0" max="333" value="50" required />
+        </li>
+        <li>
+          <label for="width">Width</label>
+          <input id="width" type="number" min="0" max="500" value="5" required />
+        </li>
+        <li>
+          <label for="height">Height</label>
+          <input id="height" type="number" min="0" max="333" value="200" required />
+        </li>
+      </ol>
+    </fieldset>
+    <fieldset id="settings">
+      <legend>Settings</legend>
       <ol>
         <li>
           <label for="threshold">Threshold</label>
@@ -44,6 +66,7 @@
       </ol>
     </fieldset>
 
+    <canvas width="500" height="333"></canvas>
     <div></div>
 
 

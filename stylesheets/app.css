@@ -84,5 +84,7 @@ html {
     h1 {font-size:24.065px}
     h1, p, fieldset, canvas {margin-bottom:14.873px}
 
+    legend {font-weight:bold}
+
     /*Results*/
     div span {display:inline-block;width:18px;height:18px;margin:0 2.170px 2.170px 0}
