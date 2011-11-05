@@ -1,8 +1,10 @@
 self.onmessage = (e) ->
-  colours = []
+  colours = [[]]
 
   for i, pix of e.data
-    colours.push([]) if ((+i)%4) is 1
-    colours[colours.length-1].push pix
+    if (+i)%4 is 0
+      colours.push([]) 
+    else
+      colours[colours.length-1].push pix
 
   self.postMessage colours

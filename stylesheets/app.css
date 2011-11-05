@@ -80,3 +80,6 @@ html {
     b, strong {font-weight:bold}
 
     img {display:none}
+
+    /*Results*/
+    div span {display:inline-block;width:10px;height:10px;margin:0 3px 3px 0}
