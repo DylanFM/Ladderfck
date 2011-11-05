@@ -14,6 +14,13 @@ $ ->
       $('#height').val()
     ]
 
+  getSettings = ->
+    [
+      $('#threshold').val()
+      $('#metric').val()
+      $('#linkage').val()
+    ]
+
   newImage = (url) ->
     ctx.clearRect 0, 0, 500, 333
     i = new Image()
@@ -21,13 +28,6 @@ $ ->
       ctx.drawImage @, 0, 0
       doc.trigger 'newImage.LF', [@]
     i.src = url
-
-  getSettings = ->
-    [
-      $('#threshold').val()
-      $('#metric').val()
-      $('#linkage').val()
-    ]
 
   clustersToColours = (clusters) ->
     clusters.map (cl) -> cl.canonical
@@ -60,6 +60,7 @@ $ ->
     worker = new Worker 'javascripts/clusterColours.js'
     worker.onmessage = (e) ->
       doc.trigger 'newClusters.LF', [e.data]
+      worker.terminate()
     [threshold, metric, linkage] = getSettings()
     worker.postMessage
       colours: colours

@@ -14,6 +14,9 @@
     getSample = function() {
       return [$('#x').val(), $('#y').val(), $('#width').val(), $('#height').val()];
     };
+    getSettings = function() {
+      return [$('#threshold').val(), $('#metric').val(), $('#linkage').val()];
+    };
     newImage = function(url) {
       var i;
       ctx.clearRect(0, 0, 500, 333);
@@ -23,9 +26,6 @@
         return doc.trigger('newImage.LF', [this]);
       };
       return i.src = url;
-    };
-    getSettings = function() {
-      return [$('#threshold').val(), $('#metric').val(), $('#linkage').val()];
     };
     clustersToColours = function(clusters) {
       return clusters.map(function(cl) {
@@ -59,7 +59,8 @@
       window.colourCache = colours;
       worker = new Worker('javascripts/clusterColours.js');
       worker.onmessage = function(e) {
-        return doc.trigger('newClusters.LF', [e.data]);
+        doc.trigger('newClusters.LF', [e.data]);
+        return worker.terminate();
       };
       _ref = getSettings(), threshold = _ref[0], metric = _ref[1], linkage = _ref[2];
       return worker.postMessage({
