@@ -21,6 +21,9 @@ $ ->
       $('#linkage').val()
     ]
 
+  isLoading = (msg) ->
+    $('div').empty().text(msg).prepend '<img src="images/loading.gif" width="16" height="16"/>'
+
   newImage = (url) ->
     ctx.clearRect 0, 0, 500, 333
     i = new Image()
@@ -38,6 +41,7 @@ $ ->
     colours.forEach (rgb) ->
       [r,g,b] = rgb
       results.append sq.clone().css('background-color', "rgb(#{r},#{g},#{b})")
+    results.prepend "<p>#{colours.length} colour#{if colours.length is 1 then '' else 's'} returned</p>"
 
   # On image load
   doc.on 'newImage.LF', (e, i) ->
@@ -51,6 +55,7 @@ $ ->
       doc.trigger 'newColours.LF', [e.data]
       worker.terminate()
     worker.postMessage sanitise(d.data)
+    isLoading 'Converting the image data to RGB colours'
 
   # On new colours
   doc.on 'newColours.LF', (e, colours) ->
@@ -67,9 +72,11 @@ $ ->
       threshold: threshold
       metric: metric
       linkage: linkage
+    isLoading 'Clustering the colours'
 
   # On new clusters
   doc.on 'newClusters.LF', (e, clusters) ->
+    isLoading 'Showing the clustered colours'
     # Clusters to colours
     colours = clustersToColours clusters
     # Show the colours
@@ -86,6 +93,8 @@ $ ->
   
   img = $ 'img'
   newImage img.attr('src')
+
+  isLoading "Getting the image sample's data"
 
   dimensions = $ '#sample'
   settings = $ '#settings'
