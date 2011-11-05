@@ -65,7 +65,7 @@
       colours = clustersToColours(clusters);
       return showColours(colours);
     });
-    $('form').on('submit', function(e) {
+    $('input,select').on('change', function(e) {
       e.preventDefault();
       return $(document).trigger('newColours.LF', [colourCache]);
     });

@@ -81,5 +81,8 @@ html {
 
     img {display:none}
 
+    h1 {font-size:24.065px}
+    h1, p, fieldset, canvas {margin-bottom:14.873px}
+
     /*Results*/
-    div span {display:inline-block;width:10px;height:10px;margin:0 3px 3px 0}
+    div span {display:inline-block;width:18px;height:18px;margin:0 2.170px 2.170px 0}

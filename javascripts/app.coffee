@@ -37,7 +37,7 @@ $ ->
 
   # On new colours
   $(document).on 'newColours.LF', (e, colours) ->
-    # Eww but I'm doing this for the time being
+    # Eww, I know, but I'm doing this for the time being
     window.colourCache = colours
     # Feed it into clusterfck
     worker = new Worker 'javascripts/clusterColours.js'
@@ -58,7 +58,7 @@ $ ->
     # Show the colours
     showColours colours
 
-  $('form').on 'submit', (e) ->
+  $('input,select').on 'change', (e) ->
     e.preventDefault()
     # Start workin
     $(document).trigger 'newColours.LF', [colourCache]
